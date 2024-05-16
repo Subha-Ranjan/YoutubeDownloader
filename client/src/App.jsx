@@ -45,7 +45,7 @@ const update=(res)=>{
       {isLoading&&<h3>Loading...</h3>}
       {videoInfo && (
         <div style={{ 'margen-left':'25%'}}>
-          <h2>Your Video</h2>
+          <h2>SubhaRanjan found out your the video</h2>
           {/* <iframe src={videoInfo.videoDetails.embed.iframeUrl} ></iframe> */}
           <iframe src={videoInfo.videoDetails.embed.iframeUrl} frameBorder="0" border="0" cellSpacing="0"
         style={{"border-style": "1px solid #646cff",'width':'calc((100% / 4) * 3 - 100px)', "aspectRatio":"9/6"}}></iframe>
@@ -59,7 +59,7 @@ const update=(res)=>{
           <li key={vid.id}>{vid?.quality}{"-"}{vid.qualityLabel} {"-----"}{vid.mimeType.split('video/')}{"-----"}{vid.projectionType} </li>
           )}</ul>} */}
 
-        {myArray &&  <select onChange={(e)=>setDownloadLink(e.target.value)} defaultValue="select perefered format">
+        {myArray && <> <label><b>Choose your preferred download format:</b></label>{" "}<select onChange={(e)=>setDownloadLink(e.target.value)} defaultValue="select perefered format">
           <optgroup label="Videos">
             {
               myArray.filter(a=>!a.mimeType.includes("audio")).map(format=>
@@ -74,7 +74,10 @@ const update=(res)=>{
                 )
             }
             </optgroup>
-            </select>}
+            </select>
+            &nbsp;
+            </>
+            }
             {downloadLink&&<button ><a href={downloadLink} style={{'text-decoration':'none'}}>Download</a></button>}
 
      </div>
