@@ -25,8 +25,6 @@ const update=(res)=>{
 
 }
 
-
-console.log("Video Format===========\n", myArray)
   return (
     <div className="App">
     
@@ -56,10 +54,10 @@ console.log("Video Format===========\n", myArray)
           <p>Duration: {videoInfo.videoDetails.lengthSeconds} seconds</p>
         </div>
       )}
-      {videoInfo&&<ul>
+      {/* {videoInfo&&<ul>
         {videoInfo?.formats.map(vid=>
           <li key={vid.id}>{vid?.quality}{"-"}{vid.qualityLabel} {"-----"}{vid.mimeType.split('video/')}{"-----"}{vid.projectionType} </li>
-          )}</ul>}
+          )}</ul>} */}
 
         {myArray &&  <select onChange={(e)=>setDownloadLink(e.target.value)} defaultValue="select perefered format">
           <optgroup label="Videos">
