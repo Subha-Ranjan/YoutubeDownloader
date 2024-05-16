@@ -39,6 +39,7 @@ const update=(res)=>{
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           style={{'padding':'10px', 'width':'calc((100% / 4) * 3 - 100px)','height':'1.3rem','margin':'1rem'}}
+          placeholder="eg. https://www.youtube.com/watch?v=tYIkfkGJxTE"
         />
       </label>
       <button onClick={()=>getInfo()}>Get Video Info</button>
