@@ -20,7 +20,7 @@ const update=(res)=>{
 
  function getInfo(){
   setIsLoading(true);
-  axios.post("http://youtube-downloader-gray.vercel.app/api/",{mydata: url}).then(update);
+  axios.post("https://youtube-downloader-gray.vercel.app/api",{mydata: url}).then(update);
   console.log("GetInfo:\n",videoInfo);
 
 }
