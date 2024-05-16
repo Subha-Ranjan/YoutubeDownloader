@@ -20,7 +20,7 @@ const update=(res)=>{
 
  function getInfo(){
   setIsLoading(true);
-  axios.post("http://localhost:8000/api/",{mydata: url}).then(update);
+  axios.post("https://deploy-mern-5wsr.vercel.app/",{mydata: url}).then(update);
   console.log("GetInfo:\n",videoInfo);
 
 }
