@@ -51,7 +51,7 @@ console.log("URL",url)
     
      <div className="conatainer">
       <div className="image-wrapper">
-        <img src={logo} alt="YouSaveTube_Logo" width="29%" height='auto' className="image"/>
+        <img src={logo} alt="YouSaveTube_Logo" width= '100%' className="image"/>
       </div>
 
       <form onSubmit={(e)=>e.preventDefault(e)}>
