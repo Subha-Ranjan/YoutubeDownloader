@@ -82,7 +82,7 @@ console.log("URL",url)
         <div style={{ 'margin':'auto'}} >
           <h2>SubhaRanjan found out your video</h2>
           <iframe src={videoInfo.videoDetails.embed.iframeUrl} frameBorder="0" border="0" cellSpacing="0"
-        style={{"border-style": "1px solid #646cff",'width':'calc((80% / 4) * 3 - 100px)', "aspectRatio":"9/6"}}></iframe>
+        style={{"border-style": "1px solid #646cff",'width':'200px', "aspectRatio":"9/6"}}></iframe>
           <p>Title: {videoInfo.videoDetails.title}</p>
           <p>Author: {videoInfo.videoDetails.author.name}</p>
           <p>Duration: {videoInfo.videoDetails.lengthSeconds} seconds</p>
