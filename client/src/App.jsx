@@ -62,7 +62,7 @@ console.log("URL",url)
           type="text"
           value={url}
           onChange={(e)=>setUrl(e.target.value)}
-          style={{'padding':'10px', 'width':'calc((100% / 4) * 3 - 100px)','height':'1.3rem','margin':'1rem'}}
+          style={{'padding':'10px', 'minWidth':'calc((100% / 4) * 3 - 10%)','height':'1.3rem','margin':'1rem'}}
           placeholder="eg. https://www.youtube.com/watch?v=tYIkfkGJxTE"
           
         />
