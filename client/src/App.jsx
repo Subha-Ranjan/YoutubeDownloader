@@ -1,5 +1,4 @@
-import { useState } from "react";
-const videoId = 'https://www.youtube.com/watch?v=aqz-KE-bpKQ';
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./App.css";
 import logo from "./images/YouSaveTubeLogo.png";
@@ -10,6 +9,22 @@ function App() {
   const [myArray, setMyArray] = useState(null);
   const [downloadLink, setDownloadLink] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  let [isValidUrl,setIsValidUrl]=useState(null);
+
+
+  const messageRef = useRef();
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView(
+        {
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest'
+        })
+    }
+  },
+  [videoInfo])
+
 
 
 const update=(res)=>{
@@ -19,48 +34,65 @@ const update=(res)=>{
 }
 
  function getInfo(){
+  if(url.trim()==""){
+    setIsValidUrl("Empty URL");
+    console.log(isValidUrl)
+  }
+  if(url.trim()!==""){
+  setIsValidUrl(true);
   setIsLoading(true);
-  axios.post("https://youtube-downloader-gray.vercel.app/api",{mydata: url}).then(update);
-  console.log("GetInfo:\n",videoInfo);
-
+  axios.post("https://youtube-downloader-gray.vercel.app/api",{mydata: url}).then(update).catch((err)=>{setIsLoading(false);setIsValidUrl("Bad Request!!!")});
+  }
+  
 }
-
+console.log("URL",url)
   return (
     <div className="App">
     
      <div className="conatainer">
       <div className="image-wrapper">
-        <img src={logo} alt="YouSaveTube_Logo" height="400rem" className="image"/>
+        <img src={logo} alt="YouSaveTube_Logo" width="29%" height='auto' className="image"/>
       </div>
+
+      <form onSubmit={(e)=>e.preventDefault(e)}>
+
       <label>
         Enter YouTube Video URL:
         <input
           type="text"
           value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={(e)=>setUrl(e.target.value)}
           style={{'padding':'10px', 'width':'calc((100% / 4) * 3 - 100px)','height':'1.3rem','margin':'1rem'}}
           placeholder="eg. https://www.youtube.com/watch?v=tYIkfkGJxTE"
+          
         />
       </label>
-      <button onClick={()=>getInfo()}>Get Video Info</button>
-      {isLoading&&<h3>Loading...</h3>}
+      <button onClick={()=>getInfo()} type="submit">Get Video Info</button>
+
+      </form>
+
+
+
+      {<p style={{"color":"red"}}><b>{isValidUrl}</b></p>}
+      {isLoading?<h3>Loading...</h3>:
+
+
+      <div className="outputContainer" ref={messageRef}>
       {videoInfo && (
-        <div style={{ 'margen-left':'25%'}}>
-          <h2>SubhaRanjan found out your the video</h2>
-          {/* <iframe src={videoInfo.videoDetails.embed.iframeUrl} ></iframe> */}
+        <div style={{ 'margin':'auto'}} >
+          <h2>SubhaRanjan found out your video</h2>
           <iframe src={videoInfo.videoDetails.embed.iframeUrl} frameBorder="0" border="0" cellSpacing="0"
-        style={{"border-style": "1px solid #646cff",'width':'calc((100% / 4) * 3 - 100px)', "aspectRatio":"9/6"}}></iframe>
+        style={{"border-style": "1px solid #646cff",'width':'calc((80% / 4) * 3 - 100px)', "aspectRatio":"9/6"}}></iframe>
           <p>Title: {videoInfo.videoDetails.title}</p>
           <p>Author: {videoInfo.videoDetails.author.name}</p>
           <p>Duration: {videoInfo.videoDetails.lengthSeconds} seconds</p>
         </div>
       )}
-      {/* {videoInfo&&<ul>
-        {videoInfo?.formats.map(vid=>
-          <li key={vid.id}>{vid?.quality}{"-"}{vid.qualityLabel} {"-----"}{vid.mimeType.split('video/')}{"-----"}{vid.projectionType} </li>
-          )}</ul>} */}
-
-        {myArray && <> <label><b>Choose your preferred download format:</b></label>{" "}<select onChange={(e)=>setDownloadLink(e.target.value)} defaultValue="select perefered format">
+     
+      { myArray && 
+        <> <label style={{ "color": "#646cff"}}><b>Choose your preferred download format:</b></label>{" "}
+         <select onChange={(e)=>setDownloadLink(e.target.value)} style={{"margin":"2%"}}>
+         <option value="" selected disabled hidden>Choose here</option>
           <optgroup label="Videos">
             {
               myArray.filter(a=>!a.mimeType.includes("audio")).map(format=>
@@ -75,13 +107,16 @@ const update=(res)=>{
                 )
             }
             </optgroup>
-            </select>
-            &nbsp;
-            </>
-            }
-            {downloadLink&&<button ><a href={downloadLink} style={{'text-decoration':'none'}}>Download</a></button>}
+         </select>&nbsp;
+        </>
+      }
+      {downloadLink&&<button ><a href={downloadLink} style={{'text-decoration':'none'}}>Download</a></button>}
 
-     </div>
+    
+      </div>
+}
+      
+       </div>
     
    
 
